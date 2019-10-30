@@ -1,2 +1,2 @@
-# Paymerang_Challenge
+# Paymerang Challenge
 Technical Challenge for Paymerang application process
