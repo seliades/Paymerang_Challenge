@@ -760,9 +760,26 @@ let paymentInfo = [
     }
 ]
 
-console.log(paymentInfo.Payee);
-console.log(paymentInfo.Payment);
-console.log(paymentInfo.Remittance);
+console.log(paymentInfo);
+// console.log(paymentInfo.Payee);
+// console.log(paymentInfo.Payment);
+// console.log(paymentInfo.Remittance);
+
+//Dynamically creating buttons for each Payee
+function renderButtons() {
+    for (var k = 0; k < paymentInfo.length; k++) {
+        var a = $("<button>");
+        a.addClass("payee-link");
+        a.attr("payee-name", paymentInfo[k].Payee.Name);
+        a.text(paymentInfo[k].Payee.Name);
+        $("#links").append(a);
+    }
+}
+renderButtons();
+
+let payeeDiv = $("<div>");
+payeeDiv.addClass("payees")
+payeeDiv.attr("style", "display:none");
 
 for (var j = 0; j < paymentInfo.length; j++) {
     //Payee info section
@@ -784,8 +801,8 @@ for (var j = 0; j < paymentInfo.length; j++) {
     aDiv.append(payeePhone);
     aDiv.append(payeeSubmissionDate);
 
-    //Appending div to HTML
-    $("#paymentInfo").append(aDiv);
+    //Appending info to payeeDiv
+    payeeDiv.append(aDiv);
 
     //Payment Info
     let bDiv = $("<div>");
@@ -800,8 +817,8 @@ for (var j = 0; j < paymentInfo.length; j++) {
     bDiv.append(paymentExp);
     bDiv.append(paymentCVV);
 
-    //Appending div to HTML
-    $("#paymentInfo").append(bDiv);
+    //Appending info to payeeDiv
+    payeeDiv.append(bDiv);
 
     //Remittance Info - For loop for multiple Payors
     for (var i = 0; i < paymentInfo[j].Remittance.length; i++) {
@@ -822,7 +839,15 @@ for (var j = 0; j < paymentInfo.length; j++) {
         cDiv.append(payorDescription);
         cDiv.append(payorInvoiceNo);
 
-        //Appending div to HTML
-        $("#paymentInfo").append(cDiv);
+        //Appending info to payeeDiv
+        payeeDiv.append(cDiv);
     }
+
+    //Appending payeeDiv to HTML
+    $("#paymentInfo").append(payeeDiv);
 }
+
+//Toggle which Payee info is shown when button clicked
+$("body").on("click", ".payee-link", function () {
+    $(".payees").toggle();
+});
