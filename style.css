@@ -1,0 +1,33 @@
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+.jumbotron {
+    padding: 32px;
+    padding-bottom: 16px;
+    background-color: #F4F7F8;
+}
+
+h1 {
+    text-align: center;
+    color: #702082;
+}
+
+.payee-link {
+    padding: 8px 12px;
+    margin: 1px;
+    background-color: #702082;
+    color: white;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.payee-link:hover {
+    background-color: white;
+    color: #702082;
+}
+
+#paymentInfo {
+    background-color: #F4F7F8;
+    margin: 0px 15px;
+}

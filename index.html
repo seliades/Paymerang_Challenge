@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
     <title>Payment Tracker</title>
 </head>
 
 <body>
-    <div class="row">
-        <div class="col-12" id="links"></div>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-12" id="title">
+                <h1>Payment Info by Payee</h1>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12" id="links"></div>
+        </div>
     </div>
     <div class="row">
-        <div class="col-12" id="paymentInfo"></div>
+        <div class="col-12">
+            <div class="card" id="paymentInfo"></div>
+        </div>
     </div>
 
     <script src="app.js"></script>
 </body>
+
 </html>
