@@ -31,3 +31,8 @@ h1 {
     background-color: #F4F7F8;
     margin: 0px 15px;
 }
+
+thead {
+    background-color: #702082;
+    color: white;
+}

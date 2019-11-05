@@ -759,11 +759,8 @@ let paymentInfo = [
         ]
     }
 ]
-
 console.log(paymentInfo);
-// console.log(paymentInfo.Payee);
-// console.log(paymentInfo.Payment);
-// console.log(paymentInfo.Remittance);
+
 
 //Dynamically creating buttons for each Payee
 function renderButtons() {
@@ -777,77 +774,53 @@ function renderButtons() {
 }
 renderButtons();
 
-let payeeDiv = $("<div>");
-payeeDiv.addClass("payees")
-payeeDiv.attr("style", "display:none");
+//Showing info for each company when that button is pressed
+$("body").on("click", ".payee-link", function () {
 
 for (var j = 0; j < paymentInfo.length; j++) {
-    //Payee info section
-    let aDiv = $("<div>");
-
     //Pulling info out of JSON object and putting into p tags
-    let payeeName = $("<h3>").text("Payee Name: " + paymentInfo[j].Payee.Name);
-    let payeeAddress = $("<p>").text("Payee Address: " + paymentInfo[j].Payee.Address);
-    let payeeAttention = $("<p>").text("Payee Attention: " + paymentInfo[j].Payee.Attention);
-    let payeeFax = $("<p>").text("Payee Fax: " + paymentInfo[j].Payee.Fax);
-    let payeePhone = $("<p>").text("Payee Phone: " + paymentInfo[j].Payee.Phone);
-    let payeeSubmissionDate = $("<p>").text("Payee Submission Date: " + paymentInfo[j].Payee.SubmissionDate);
+    let payeeName = $("<h3>").text(paymentInfo[j].Payee.Name);
+    let payeeAddress1 = $("<p>").text(`Address: ${paymentInfo[j].Payee.Address.Address1} ${paymentInfo[j].Payee.Address.Address2}`);
+    let payeeAddress2 = $("<p>").text(`${paymentInfo[j].Payee.Address.City}, ${paymentInfo[j].Payee.Address.StateOrProvince} ${paymentInfo[j].Payee.Address.PostalCode}`);
+    let payeeAttention = $("<p>").text(`Attention To: ${paymentInfo[j].Payee.Attention}`);
+    let payeeFax = $("<p>").text(`Fax: ${paymentInfo[j].Payee.Fax}`);
+    let payeePhone = $("<p>").text(`Phone: ${paymentInfo[j].Payee.Phone}`);
+    let payeeSubmissionDate = $("<p>").text(`Submission Date: ${paymentInfo[j].Payee.SubmissionDate}`);
+    
+    let paymentPAN = $("<p>").text(`Account Number: ${paymentInfo[j].Payment.PAN}`);
+    let paymentExp = $("<p>").text(`Expiration Date: ${paymentInfo[j].Payment.Exp}`);
+    let paymentCVV = $("<p>").text(`CVV Code: ${paymentInfo[j].Payment.CVV}`);
 
-    //Appending p tags to div
-    aDiv.append(payeeName);
-    aDiv.append(payeeAddress);
-    aDiv.append(payeeAttention);
-    aDiv.append(payeeFax);
-    aDiv.append(payeePhone);
-    aDiv.append(payeeSubmissionDate);
+    //Appending p tags to HTML divs
+    $("#companyName").append(payeeName);
+    $("#attention").append(payeeAttention);
+    $("#subDate").append(payeeSubmissionDate);
+    $("#phone").append(payeePhone);
+    $("#fax").append(payeeFax);
 
-    //Appending info to payeeDiv
-    payeeDiv.append(aDiv);
+    $("#address1").append(payeeAddress1);
+    $("#address2").append(payeeAddress2);
 
-    //Payment Info
-    let bDiv = $("<div>");
-
-    //Pulling info out of JSON object and putting into p tags
-    let paymentPAN = $("<p>").text("Payment PAN: " + paymentInfo[j].Payment.PAN);
-    let paymentExp = $("<p>").text("Payment Exp: " + paymentInfo[j].Payment.Exp);
-    let paymentCVV = $("<p>").text("Payment CVV: " + paymentInfo[j].Payment.CVV);
-
-    //Appending p tags to div
-    bDiv.append(paymentPAN);
-    bDiv.append(paymentExp);
-    bDiv.append(paymentCVV);
-
-    //Appending info to payeeDiv
-    payeeDiv.append(bDiv);
+    $("#pan").append(paymentPAN);
+    $("#exp").append(paymentExp);
+    $("#cvv").append(paymentCVV);
 
     //Remittance Info - For loop for multiple Payors
     for (var i = 0; i < paymentInfo[j].Remittance.length; i++) {
 
-        let cDiv = $("<div>");
-
         //Pulling info out of JSON object and putting into p tags
-        let payorName = $("<h4>").text("Payor Name: " + paymentInfo[j].Remittance[i].PayorName);
-        let payorId = $("<p>").text("Payor ID: " + paymentInfo[j].Remittance[i].PayorId);
-        let payorAmount = $("<p>").text("Payor Amount: " + paymentInfo[j].Remittance[i].Amount);
-        let payorDescription = $("<p>").text("Payor Description: " + paymentInfo[j].Remittance[i].Description);
-        let payorInvoiceNo = $("<p>").text("Payor Invoice Number: " + paymentInfo[j].Remittance[i].InvoiceNo);
+        let payorName = $("<p>").text(`${paymentInfo[j].Remittance[i].PayorName}`);
+        let payorInvoiceNo = $("<p>").text(`${paymentInfo[j].Remittance[i].InvoiceNo}`);
+        let payorAmount = $("<p>").text(`${paymentInfo[j].Remittance[i].Amount}`);
+        let payorDescription = $("<p>").text(`${paymentInfo[j].Remittance[i].Description}`);
+        let payorId = $("<p>").text(`${paymentInfo[j].Remittance[i].PayorId}`);
 
         //Appending p tags to div
-        cDiv.append(payorName);
-        cDiv.append(payorId);
-        cDiv.append(payorAmount);
-        cDiv.append(payorDescription);
-        cDiv.append(payorInvoiceNo);
-
-        //Appending info to payeeDiv
-        payeeDiv.append(cDiv);
+        $("#name1").append(payorName);
+        $("#num1").append(payorInvoiceNo);
+        $("#amt1").append(payorAmount);
+        $("#desc1").append(payorDescription);
+        $("#pID1").append(payorId);
     }
-
-    //Appending payeeDiv to HTML
-    $("#paymentInfo").append(payeeDiv);
-}
-
-//Toggle which Payee info is shown when button clicked
-$("body").on("click", ".payee-link", function () {
-    $(".payees").toggle();
+}    
 });
