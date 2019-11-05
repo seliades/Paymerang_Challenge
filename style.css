@@ -5,12 +5,13 @@ body {
 .jumbotron {
     padding: 32px;
     padding-bottom: 16px;
+    padding-top: 16px;
     background-color: #F4F7F8;
+    margin-bottom: 16px;
 }
 
 h1 {
     text-align: center;
-    color: #702082;
 }
 
 .payee-link {
@@ -25,6 +26,10 @@ h1 {
 .payee-link:hover {
     background-color: white;
     color: #702082;
+}
+
+th {
+    text-align: center;
 }
 
 #paymentInfo {

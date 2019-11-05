@@ -767,60 +767,135 @@ function renderButtons() {
     for (var k = 0; k < paymentInfo.length; k++) {
         var a = $("<button>");
         a.addClass("payee-link");
-        a.attr("payee-name", paymentInfo[k].Payee.Name);
+        a.attr("name", paymentInfo[k].Payee.Name);
         a.text(paymentInfo[k].Payee.Name);
         $("#links").append(a);
     }
 }
 renderButtons();
 
+//Function to clear existing info from all divs
+function clearInfo() {
+    $("#companyName").empty();
+    $("#attention").empty();
+    $("#subDate").empty();
+    $("#phone").empty();
+    $("#fax").empty();
+    $("#address1").empty();
+    $("#address2").empty();
+    $("#pan").empty();
+    $("#exp").empty();
+    $("#cvv").empty();
+    $("#name1").empty();
+    $("#num1").empty();
+    $("#amt1").empty();
+    $("#desc1").empty();
+    $("#pID1").empty();
+    $("#name2").empty();
+    $("#num2").empty();
+    $("#amt2").empty();
+    $("#desc2").empty();
+    $("#pID2").empty();
+    $("#name3").empty();
+    $("#num3").empty();
+    $("#amt3").empty();
+    $("#desc3").empty();
+    $("#pID3").empty();
+    $("#name4").empty();
+    $("#num4").empty();
+    $("#amt4").empty();
+    $("#desc4").empty();
+    $("#pID4").empty();
+    $("#name5").empty();
+    $("#num5").empty();
+    $("#amt5").empty();
+    $("#desc5").empty();
+    $("#pID5").empty();
+}
+
 //Showing info for each company when that button is pressed
-$("body").on("click", ".payee-link", function () {
+$("body").on("click", ".payee-link", "name", function () {
 
-for (var j = 0; j < paymentInfo.length; j++) {
-    //Pulling info out of JSON object and putting into p tags
-    let payeeName = $("<h3>").text(paymentInfo[j].Payee.Name);
-    let payeeAddress1 = $("<p>").text(`Address: ${paymentInfo[j].Payee.Address.Address1} ${paymentInfo[j].Payee.Address.Address2}`);
-    let payeeAddress2 = $("<p>").text(`${paymentInfo[j].Payee.Address.City}, ${paymentInfo[j].Payee.Address.StateOrProvince} ${paymentInfo[j].Payee.Address.PostalCode}`);
-    let payeeAttention = $("<p>").text(`Attention To: ${paymentInfo[j].Payee.Attention}`);
-    let payeeFax = $("<p>").text(`Fax: ${paymentInfo[j].Payee.Fax}`);
-    let payeePhone = $("<p>").text(`Phone: ${paymentInfo[j].Payee.Phone}`);
-    let payeeSubmissionDate = $("<p>").text(`Submission Date: ${paymentInfo[j].Payee.SubmissionDate}`);
-    
-    let paymentPAN = $("<p>").text(`Account Number: ${paymentInfo[j].Payment.PAN}`);
-    let paymentExp = $("<p>").text(`Expiration Date: ${paymentInfo[j].Payment.Exp}`);
-    let paymentCVV = $("<p>").text(`CVV Code: ${paymentInfo[j].Payment.CVV}`);
-
-    //Appending p tags to HTML divs
-    $("#companyName").append(payeeName);
-    $("#attention").append(payeeAttention);
-    $("#subDate").append(payeeSubmissionDate);
-    $("#phone").append(payeePhone);
-    $("#fax").append(payeeFax);
-
-    $("#address1").append(payeeAddress1);
-    $("#address2").append(payeeAddress2);
-
-    $("#pan").append(paymentPAN);
-    $("#exp").append(paymentExp);
-    $("#cvv").append(paymentCVV);
-
-    //Remittance Info - For loop for multiple Payors
-    for (var i = 0; i < paymentInfo[j].Remittance.length; i++) {
-
+    for (var j = 0; j < paymentInfo.length; j++) {
         //Pulling info out of JSON object and putting into p tags
-        let payorName = $("<p>").text(`${paymentInfo[j].Remittance[i].PayorName}`);
-        let payorInvoiceNo = $("<p>").text(`${paymentInfo[j].Remittance[i].InvoiceNo}`);
-        let payorAmount = $("<p>").text(`${paymentInfo[j].Remittance[i].Amount}`);
-        let payorDescription = $("<p>").text(`${paymentInfo[j].Remittance[i].Description}`);
-        let payorId = $("<p>").text(`${paymentInfo[j].Remittance[i].PayorId}`);
+        let payeeName = $("<h3>").text(paymentInfo[j].Payee.Name);
+        let payeeAddress1 = $("<p>").text(`Address: ${paymentInfo[j].Payee.Address.Address1} ${paymentInfo[j].Payee.Address.Address2}`);
+        let payeeAddress2 = $("<p>").text(`${paymentInfo[j].Payee.Address.City}, ${paymentInfo[j].Payee.Address.StateOrProvince} ${paymentInfo[j].Payee.Address.PostalCode}`);
+        let payeeAttention = $("<p>").text(`Attention To: ${paymentInfo[j].Payee.Attention}`);
+        let payeeFax = $("<p>").text(`Fax: ${paymentInfo[j].Payee.Fax}`);
+        let payeePhone = $("<p>").text(`Phone: ${paymentInfo[j].Payee.Phone}`);
+        let payeeSubmissionDate = $("<p>").text(`Submission Date: ${paymentInfo[j].Payee.SubmissionDate}`);
 
-        //Appending p tags to div
-        $("#name1").append(payorName);
-        $("#num1").append(payorInvoiceNo);
-        $("#amt1").append(payorAmount);
-        $("#desc1").append(payorDescription);
-        $("#pID1").append(payorId);
+        let paymentPAN = $("<p>").text(`Account Number: ${paymentInfo[j].Payment.PAN}`);
+        let paymentExp = $("<p>").text(`Expiration Date: ${paymentInfo[j].Payment.Exp}`);
+        let paymentCVV = $("<p>").text(`CVV Code: ${paymentInfo[j].Payment.CVV}`);
+
+        //Checks button name attribute to append correct payee info
+        if (this.name === paymentInfo[j].Payee.Name) {
+            //Clear existing info
+            clearInfo();
+
+            //Appending p tags to HTML divs
+            $("#companyName").append(payeeName);
+            $("#attention").append(payeeAttention);
+            $("#subDate").append(payeeSubmissionDate);
+            $("#phone").append(payeePhone);
+            $("#fax").append(payeeFax);
+
+            $("#address1").append(payeeAddress1);
+            $("#address2").append(payeeAddress2);
+
+            $("#pan").append(paymentPAN);
+            $("#exp").append(paymentExp);
+            $("#cvv").append(paymentCVV);
+
+            //Remittance Info - For loop for multiple Payors
+            for (var i = 0; i < paymentInfo[j].Remittance.length; i++) {
+
+                //Pulling info out of JSON object and putting into p tags
+                let payorName = $("<p>").text(`${paymentInfo[j].Remittance[i].PayorName}`);
+                let payorInvoiceNo = $("<p>").text(`${paymentInfo[j].Remittance[i].InvoiceNo}`);
+                let payorAmount = $("<p>").text(`${paymentInfo[j].Remittance[i].Amount}`);
+                let payorDescription = $("<p>").text(`${paymentInfo[j].Remittance[i].Description}`);
+                let payorId = $("<p>").text(`${paymentInfo[j].Remittance[i].PayorId}`);
+
+                //Appending p tags to div
+                if (i === 0) {
+                    $("#name1").append(payorName);
+                    $("#num1").append(payorInvoiceNo);
+                    $("#amt1").append(payorAmount);
+                    $("#desc1").append(payorDescription);
+                    $("#pID1").append(payorId);
+                }
+                else if (i === 1) {
+                    $("#name2").append(payorName);
+                    $("#num2").append(payorInvoiceNo);
+                    $("#amt2").append(payorAmount);
+                    $("#desc2").append(payorDescription);
+                    $("#pID2").append(payorId);
+                }
+                else if (i === 2) {
+                    $("#name3").append(payorName);
+                    $("#num3").append(payorInvoiceNo);
+                    $("#amt3").append(payorAmount);
+                    $("#desc3").append(payorDescription);
+                    $("#pID3").append(payorId);
+                }
+                else if (i === 3) {
+                    $("#name4").append(payorName);
+                    $("#num4").append(payorInvoiceNo);
+                    $("#amt4").append(payorAmount);
+                    $("#desc4").append(payorDescription);
+                    $("#pID4").append(payorId);
+                }
+                else {
+                    $("#name5").append(payorName);
+                    $("#num5").append(payorInvoiceNo);
+                    $("#amt5").append(payorAmount);
+                    $("#desc5").append(payorDescription);
+                    $("#pID5").append(payorId);
+                }
+            }
+        }
     }
-}    
 });
